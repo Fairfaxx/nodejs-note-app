@@ -15,9 +15,9 @@ const addNote = (title, body) => {
 			body
 		});
 		saveNotes(notes);
-		console.log('New note added');
+		console.log(chalk.green.inverse('New note added'));
 	} else {
-		console.log('It is duplicated');
+		console.log(chalk.red.inverse('It is duplicated'));
 	}
 };
 
@@ -31,6 +31,12 @@ const removeNote = (title, body) => {
 		console.log(chalk.bgRed('No notes to remove found'));
 	}
 };
+
+const listNotes = () => {
+  const notes = loadNotes();
+  const allNotes = notes.map(note => console.log(chalk.green(`Title: ${note.title}`), chalk.blue(`Body: ${note.body}`)))
+  return allNotes;
+}
 
 const saveNotes = (notes) => {
 	const dataJSON = JSON.stringify(notes);
@@ -50,5 +56,6 @@ const loadNotes = () => {
 module.exports = {
 	getNotes: getNotes,
 	addNote: addNote,
-	removeNote: removeNote
+	removeNote: removeNote,
+  listNotes: listNotes,
 };
